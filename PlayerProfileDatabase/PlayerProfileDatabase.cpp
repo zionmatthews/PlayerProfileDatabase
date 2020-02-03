@@ -2,9 +2,11 @@
 //
 
 #include "pch.h"
+#include "Menu.h"
 #include <iostream>
 
-int main()
+void main()
 {
-   
+	Menu menu;
+	menu.start();
 }

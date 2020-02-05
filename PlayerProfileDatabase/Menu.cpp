@@ -23,18 +23,24 @@ void Menu::start()
 		cout << "\n\nEnter your choice...!\n";
 		cin >> choice;
 		system("cls");//clearing the console
-
-		switch (choice) {
-
-		case 7: exit(0); //closes the program		
-
-		default: cout << "Wrong Input, please try again...\n";
-			break;
-		}
+				
 		if (choice == 1) {
 			Player player;
 			player.PlayerProfile();
 			add(player);
+		}
+		if (choice == 2) {
+			/*Player player;
+			player.Remove();
+			Remove(player);*/
+		}
+		if (choice == 6) {
+			Player player;
+			player.Search();
+			Search(player);
+		}
+		if (choice == 7) {
+			exit(0);
 		}
 
 	}
@@ -48,6 +54,33 @@ void Menu::add(Player player)
 	for (int i = 0; i < dataLength; i++)
 	{
 		middleData[i] = playerData[i];
+	}
+	playerData = middleData;
+	playerData[dataLength] = player;
+	dataLength++;
+}
+
+void Menu::Remove(Player player)
+{
+	cout << "Player Profile Removed";
+	Player* middleData = new Player[dataLength - 1];
+
+	for (int i = 0; i < dataLength; i++)
+	{
+		middleData[i] = playerData[i];
+	}
+	playerData = middleData;
+	playerData[dataLength] = player;
+	dataLength++;
+}
+
+void Menu::Search(Player player) 
+{
+	std::cout << "The list of all created player profiles" << ::endl;
+	Player* middleData = new Player[dataLength + 1];
+	for (int i = 0; i < dataLength; i++) 
+	{
+		std::cout << i + 1 << ": " << playerData[i].getName() << "  " << playerData[i].getScore() << std::endl;
 	}
 	playerData = middleData;
 	playerData[dataLength] = player;

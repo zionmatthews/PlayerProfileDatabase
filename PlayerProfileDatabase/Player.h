@@ -13,13 +13,19 @@ public:
 	void setScore(const int score);*/
 
 	void PlayerProfile();
+	void Search();
+	void Remove();
 
 	char* getName();
 	int getScore();
 
+	
 
 	char playerName[30];
 	int playerScore;
+
+	//int dataLength = 0;
+	//Player* playerData = new Player[dataLength];
 
 	void save(std::ofstream& out);
 	bool load(std::ifstream& in);

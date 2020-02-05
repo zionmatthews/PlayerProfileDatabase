@@ -15,6 +15,30 @@ void Player::PlayerProfile()
 	std::cin >> playerScore;
 }
 
+void Player::Search()
+{
+
+}
+
+//void Player::Remove() 
+//{
+//	std::cout << "Please select a profile to remove...";
+//	std::cin.clear();
+//	std::cin.ignore(std::cin.rdbuf()->in_avail());
+//
+//	Player* middleData = new Player[dataLength + 1];
+//	for (int i = 0; i < dataLength; i++)
+//	{
+//		std::cout << i + 1 << ": " << playerData[i].getName() << playerData[i].getScore() << std::endl;		
+//	}
+//	std::cin.get();
+//
+//	for (int i = 0; i < dataLength; i++) 
+//	{
+//
+//	}
+//}
+
 char* Player::getName()
 {
 	return playerName;

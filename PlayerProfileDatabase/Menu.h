@@ -11,6 +11,8 @@ public:
 
 
 	void add(Player player);
+	void Remove(Player player);
+	void Search(Player player);
 
 	char playerName[30];
 	int playerScore;

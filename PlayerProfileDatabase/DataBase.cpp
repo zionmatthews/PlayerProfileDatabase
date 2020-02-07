@@ -159,24 +159,21 @@ int DataBase::getLength()
 //saves profile names and scores to the save file
 void DataBase::SavePlayerProfiles()
 {
-	ofstream out;
-	out.open("PlayersRecord.dat", ofstream::out | ofstream::trunc);
+	std::ofstream file;
+	file.open("PlayersRecord.dat", std::ios::out);
 
-	if (!out.is_open())
+	//saves arraylength variable
+	file << _arrayLength << std::endl;
+
+	//saves player and high scores
+	for (int i = 0; i < _arrayLength; i++)
 	{
-		return;
+		file << PlayerProfileList[i].getName() << std::endl;
+		file << PlayerProfileList[i].getScore() << std::endl;
 	}
+	file.flush();
+	file.close();
 
-	out << size << endl;
-
-	for (int i = 0; i < size; i++)
-	{
-		out << PlayerProfileList[i].getName() << endl;
-		out << PlayerProfileList[i].getScore() << endl;
-	}
-
-	out.flush();
-	out.close();
 }//end of DataBase Save
 
 //loads the profile  from the save file

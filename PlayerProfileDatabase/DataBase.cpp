@@ -82,7 +82,7 @@ void DataBase::Sort()
 void DataBase::List()
 {	
 	system("cls");
-	std::cout << _arrayLength << std::endl;
+	//std::cout << _arrayLength << std::endl;
 	//print out names and  scores
 	for (int i = 0; i < _arrayLength; i++)
 	{
@@ -159,20 +159,24 @@ int DataBase::getLength()
 //saves profile names and scores to the save file
 void DataBase::SavePlayerProfiles()
 {
-	std::ofstream file;
-	file.open("PlayersRecord.dat", std::ios::out);
+	ofstream out;
+	out.open("PlayersRecord.dat", ofstream::out | ofstream::trunc);
 
-	//saves arraylength variable
-	file << _arrayLength << std::endl;
-
-	//saves player and high scores
-	for (int i = 0; i < _arrayLength; i++)
+	if (!out.is_open())
 	{
-		file.write(PlayerProfileList[i].getName(), 30);
-		
+		return;
 	}
 
-	file.close();
+	out << size << endl;
+
+	for (int i = 0; i < size; i++)
+	{
+		out << PlayerProfileList[i].getName() << endl;
+		out << PlayerProfileList[i].getScore() << endl;
+	}
+
+	out.flush();
+	out.close();
 }//end of DataBase Save
 
 //loads the profile  from the save file

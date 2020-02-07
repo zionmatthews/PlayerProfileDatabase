@@ -41,3 +41,31 @@ void Player::setScore(const int score)
 {
 	_Score = score;
 }
+
+void Player::save(std::ofstream & out)
+{
+	if (!out.is_open())
+		return;
+	//write player name
+	out.write(_Name, 30);
+	//write player score
+	out.write((char*)&_Score, sizeof(int));
+
+}
+bool Player::load(std::ifstream& in)
+{
+	//check if file is still open
+	if (!in.is_open())return false;
+
+	//Load name
+	in.read(_Name, 30);
+
+	if (in.rdstate()) return false;
+	//Load Score
+	in.read((char*)&_Score, sizeof(int));
+
+	if (in.rdstate()) return false;
+
+
+	return true;
+}

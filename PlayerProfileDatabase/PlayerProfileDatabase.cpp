@@ -51,22 +51,7 @@ int main()
 			
 		case 3: //Search for a player profile.
 
-			/*system("cls");
-			cout << "Who are you looking for?" << endl;
-			cin >> cName;
-			system("cls");
-			if (playerList.Search(cName) < 0)
-			{
-				cout << "Player found" << endl;
-				cout << playerList.getPlayer(playerList.Search(cName)).Name() << endl;
-			}
-			else
-			{
-				cout << "Player not found." << endl;
-			}
-
-			system("pause");
-			break;*/
+			playerList.Search();
 			
 		case 4: //Save the player profiles.
 
@@ -79,11 +64,7 @@ int main()
 			exit(0);
 		}//end of switch
 
-		if (choice == 3) {
-			
-			playerList.Search();
-			
-		}
+		
 
 	}//end of the while loop
 	

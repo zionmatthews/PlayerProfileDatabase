@@ -3,18 +3,25 @@
 class Player
 {
 public:
+	//Defualt constructers
 	Player();
 	~Player();
 
-	Player(char* name, int score);
+	//Name and score for int
+	Player(const char name[30], int score);
 
+	//Grabs Name and Score
 	char* getName();
 	int getScore();
-	void editPlayerName(char* name);
+	//Edit profile name
+	//void EditProfileName(char* name);
 
+	//Sets name and score
 	void setName(const char name[30]);
-	void setScore(const int score);
+	void setScore( int score);
 
-	char Name[30];
-	int Score;
+	//Char array
+	char _Name[30];
+	//Score
+	int _Score;
 };

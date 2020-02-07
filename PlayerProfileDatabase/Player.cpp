@@ -2,47 +2,42 @@
 #include "Player.h"
 #include <iostream>
 
-
+//default constructer
 Player::Player()
 {
-	strcpy_s(Name, "Player");
-	Score = 0;
+	strcpy_s(_Name, "Player");
+	_Score = 0;
 }
-
-Player::Player(char* name, int score)
+//Function that takes the name and score in as int
+Player::Player(const char name[30] , int score)
 {
-	strcpy_s(Name, name);
-	Score = score;
+	strcpy_s(_Name, name);
+	_Score = score;
 }
 
-
+//default constructer
 Player::~Player()
 {
 
 }
-
+//Get Name
 char* Player::getName()
 {
-	return Name;
+	return _Name;
 }
-
+//Get Score
 int Player::getScore()
 {
-	return Score;
+	return _Score;
 }
 
 //set name
 void Player::setName(const char name[30])
 {
-	strcpy_s(Name, name);
+	strcpy_s(_Name, name);
 }
 //set score
 void Player::setScore(const int score)
 {
-	Score = score;
-}
-
-void Player::editPlayerName(char* name)
-{
-	name = Name;
+	_Score = score;
 }

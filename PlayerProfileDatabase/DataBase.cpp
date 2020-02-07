@@ -4,19 +4,19 @@
 #include <fstream>
 #include <string>
 
-
+//defualt construter
 DataBase::DataBase()
 {
 	_arrayLength = 0;
 }
 
-
+//defualt construter
 DataBase::~DataBase()
 {
 
 }
 
-//Adds another player to the list of players
+//Adds the player profile to the array list
 void DataBase::Add(Player newProfile)
 {
 	Player* newList = new Player[_arrayLength + 1];
@@ -31,10 +31,11 @@ void DataBase::Add(Player newProfile)
 	_arrayLength++;
 
 	PlayerProfileList = newList;
-}
+	Sort();
+}//end of DataBase Add
 
 
-//Sorts the playerlist by alphabetical order
+//Sorts the list in alhpabetical order
 void DataBase::Sort()
 {
 	bool sorted = false;
@@ -42,12 +43,12 @@ void DataBase::Sort()
 	while (!sorted)
 	{
 		int swaps = 0;
-		//loop counting through the list of players
+		//loop
 		for (int i = 0; i < _arrayLength - 1; i++)
 		{
 			int p = i + 1;
 
-			//loop counting through the letters in names of players and comparing
+			//loop for the names
 			for (int n = 0; n < 30; n++)
 			{
 				if (PlayerProfileList[i].getName()[n] > PlayerProfileList[p].getName()[n])
@@ -68,22 +69,21 @@ void DataBase::Sort()
 				}
 			}
 		}
-		//if swaps is greater than 0 the function should continue the loop until no swaps happen
+		
 		if (swaps <= 0)
 		{
 			sorted = true;
 		}
-	}
-	//savePlayers();
-}
+	}//end of while
+	
+}//end of Databass Sort
 
-//Displays the list of players and their scores to the console
-void DataBase::Display()
-{
-	Sort();
+//Shows the list of all created player profiles that are stored in the array
+void DataBase::List()
+{	
 	system("cls");
-
-	//print out players and high scores
+	std::cout << _arrayLength << std::endl;
+	//print out names and  scores
 	for (int i = 0; i < _arrayLength; i++)
 	{
 		std::cout << PlayerProfileList[i].getName() << ": " << PlayerProfileList[i].getScore() << std::endl;
@@ -93,35 +93,70 @@ void DataBase::Display()
 	{
 		std::cout << "\nNo profiles found. " << std::endl;
 	}
-}
+}//End of Database Display
 
-//Finds a specific player in the list by high score or name
-Player * DataBase::Search(char* name)
+//searches for an inputted profile and allows the user to edit it
+void DataBase::Search()
 {
-	int i = 0;
-	int max = _arrayLength - 1;
+	char input[30] = "\0";
+	int inputint = 0;
+	int index = 0;
 
+	std::cout << "Enter the name of the player to search for." << std::endl;
 
-	while (i <= max)
-	{
-		int searchSpot = (i + max) / 2;
-		if (PlayerProfileList[searchSpot].getName() == name)
+	//Clear the input buffer, ready for player input
+	std::cin.clear();
+	std::cin.ignore(std::cin.rdbuf()->in_avail());
+
+	std::cin >> input;
+	index = BinarySearch(input);
+	if (index != -1) {
+
+		std::cout << PlayerProfileList[index]._Name << PlayerProfileList[index]._Score << std::endl;
+
+		std::cout << "Do you want to edit this profile (yes/no)" << std::endl;
+		std::cin.clear();
+		std::cin >> input;
+		if (strcmp(input, "yes") == 0)
 		{
-			return &PlayerProfileList[searchSpot];
+			std::cout << "Choose a new name for this profile " << std::endl;
+			std::cout << "New name:" << std::endl;;
+			std::cin >> input;
+			PlayerProfileList[index].setName(input);
+			std::cout << "Choose a new score For this profile" << std::endl;
+			std::cout << "New score:";
+			std::cin >> inputint;
+			PlayerProfileList[index].setScore(inputint);
+			return;
 		}
-		else if (PlayerProfileList[searchSpot].getName() < name)
+		else if (strcmp(input, "no") == 0)
 		{
-			i = searchSpot + 1;
+			return;
 		}
-		else if (PlayerProfileList[searchSpot].getName() > name)
+		else
 		{
-			i = _arrayLength - 1;
+			system("CLS");
+			std::cout << "Invalid input" << std::endl;
 		}
 	}
-	return nullptr;
+	else
+	{
+		system("CLS");
+		std::cout << "Player not found." << std::endl;
+	}
 }
+//grabs  variable out of the Array of players
+Player DataBase::getPlayer(int i)
+{
+	return PlayerProfileList[i];
+}//end of DataBase get player
 
-//saves player names and high scores to the save file
+int DataBase::getLength()
+{
+	return _arrayLength;
+}//end of DataBase get length
+
+//saves profile names and scores to the save file
 void DataBase::SavePlayerProfiles()
 {
 	std::ofstream file;
@@ -133,59 +168,74 @@ void DataBase::SavePlayerProfiles()
 	//saves player and high scores
 	for (int i = 0; i < _arrayLength; i++)
 	{
-		file << getPlayer(i).getName() << std::endl;
-		file << getPlayer(i).getScore() << std::endl;
+		file.write(PlayerProfileList[i].getName(), 30);
+		
 	}
 
 	file.close();
-}
+}//end of DataBase Save
 
-//loads players from the save file
+//loads the profile  from the save file
 bool DataBase::load()
 {
 
 	char* name = new char[30];
-	int temphighscore;
+	int tempScore;
 	int tempArrayLength;
 
 	std::ifstream file;
 
 	file.open("PlayersRecord.dat", std::ios::in);
 
-	//checks if file is open
+	//checks if the file is open
 	if (!file.is_open())
 		return false;
 
-	//loads in the array length from the file
-	//file.read((char*)&_arrayLength, sizeof(int));
+	//loads in the array  from the file
 	file >> tempArrayLength;
 
-	//loads in player and player score
+	//loads in name and score
 	for (int i = 0; i < tempArrayLength; i++)
 	{
 		file >> name;
-		file >> temphighscore;
-
-		//creates player and adds player with loaded name to the list
-		Player newProfile(name, temphighscore);
+		file >> tempScore;
+		
+		Player newProfile(name, tempScore);
 		Add(newProfile);
 	}
 
-	//checks to see if loads correctly
+	//checks the file
 	if (file.rdstate())
 		return false;
 
 	return true;
-}
+}//end of DataBase load
 
-//grabs the player variable out of the Array of players
-Player DataBase::getPlayer(int i)
+
+
+//searches the database for the inputted player by name
+int DataBase::BinarySearch(char  name[30])
 {
-	return PlayerProfileList[i];
-}
+	int max = _arrayLength - 1;
+	int min = 0;
 
-int DataBase::getLength()
-{
-	return _arrayLength;
-}
 
+	while (min != max)
+	{
+		int middle = (min + max) / 2;
+		if (strcmp(PlayerProfileList[middle].getName(), name) == 0)
+		{
+			return middle;
+		}
+		else if (strcmp(PlayerProfileList[middle].getName(), name) < 0)
+		{
+			min = middle + 1;
+
+		}
+		else if (strcmp(PlayerProfileList[middle].getName(), name) > 0)
+		{
+			max = middle - 1;
+		}
+	}
+	return -1;
+}

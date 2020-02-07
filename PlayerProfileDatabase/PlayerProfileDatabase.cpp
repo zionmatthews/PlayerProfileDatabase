@@ -36,42 +36,55 @@ int main()
 		case 1: //Create a player profile.
 
 			cout << "\nGive the player profile a name..." << endl;
-			char Name[30];
-			cin >> Name;
+			char cName[30];
+			cin >> cName;
 			cout << "\nGive the player profile a score..." << endl;
-			int Score;
-			cin >> Score;
-			playerList.Add(Player(Name, Score));
+			int cScore;
+			cin >> cScore;
+			playerList.Add(Player(cName, cScore));
 			break;
 		case 2: //show all player profiles created.
 
-			playerList.Display();
+			playerList.List();
 			system("pause");
 			break;
-
+			
 		case 3: //Search for a player profile.
 
 			/*system("cls");
 			cout << "Who are you looking for?" << endl;
-			cin >> Name;
-			std::cout << playerList.Search(Name);
-			break;*/
+			cin >> cName;
+			system("cls");
+			if (playerList.Search(cName) < 0)
+			{
+				cout << "Player found" << endl;
+				cout << playerList.getPlayer(playerList.Search(cName)).Name() << endl;
+			}
+			else
+			{
+				cout << "Player not found." << endl;
+			}
 
+			system("pause");
+			break;*/
+			
 		case 4: //Save the player profiles.
 
 			playerList.SavePlayerProfiles();
 			playerList.load();
 			break;
-
+								
 		case 5: //Exit from program.
 
 			exit(0);
 		}//end of switch
 
 		if (choice == 3) {
-
+			
+			playerList.Search();
+			
 		}
 
 	}//end of the while loop
-
+	
 }//end of main

@@ -1,32 +1,20 @@
 #pragma once
-#include "pch.h"
-#include <fstream>
-
+#include <string>
 class Player
 {
 public:
-	/*Player();
-	Player(const char name[30], int score);
+	Player();
 	~Player();
-	Player(char* Name, int score);
-	void setName(const char name[30]);
-	void setScore(const int score);*/
 
-	void PlayerProfile();
-	void Search();
-	void Remove();
+	Player(char* name, int score);
 
 	char* getName();
 	int getScore();
+	void editPlayerName(char* name);
 
-	
+	void setName(const char name[30]);
+	void setScore(const int score);
 
-	char playerName[30];
-	int playerScore;
-
-	//int dataLength = 0;
-	//Player* playerData = new Player[dataLength];
-
-	void save(std::ofstream& out);
-	bool load(std::ifstream& in);
+	char Name[30];
+	int Score;
 };

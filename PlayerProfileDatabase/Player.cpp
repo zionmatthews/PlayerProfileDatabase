@@ -2,76 +2,47 @@
 #include "Player.h"
 #include <iostream>
 
-void Player::PlayerProfile()
-{
-	std::cout << "Please enter a name for the profile: ";
-	std::cin.clear();
-	std::cin.ignore(std::cin.rdbuf()->in_avail());
-	std::cin >> playerName;
 
-	std::cout << "Please enter a score for the profile: ";
-	std::cin.clear();
-	std::cin.ignore(std::cin.rdbuf()->in_avail());
-	std::cin >> playerScore;
+Player::Player()
+{
+	strcpy_s(Name, "Player");
+	Score = 0;
 }
 
-void Player::Search()
+Player::Player(char* name, int score)
+{
+	strcpy_s(Name, name);
+	Score = score;
+}
+
+
+Player::~Player()
 {
 
 }
-
-//void Player::Remove() 
-//{
-//	std::cout << "Please select a profile to remove...";
-//	std::cin.clear();
-//	std::cin.ignore(std::cin.rdbuf()->in_avail());
-//
-//	Player* middleData = new Player[dataLength + 1];
-//	for (int i = 0; i < dataLength; i++)
-//	{
-//		std::cout << i + 1 << ": " << playerData[i].getName() << playerData[i].getScore() << std::endl;		
-//	}
-//	std::cin.get();
-//
-//	for (int i = 0; i < dataLength; i++) 
-//	{
-//
-//	}
-//}
 
 char* Player::getName()
 {
-	return playerName;
+	return Name;
 }
 
 int Player::getScore()
 {
-	return playerScore;
+	return Score;
 }
 
+//set name
+void Player::setName(const char name[30])
+{
+	strcpy_s(Name, name);
+}
+//set score
+void Player::setScore(const int score)
+{
+	Score = score;
+}
 
-
-//void Player::save(std::ofstream & out)
-//{
-//	if (!out.is_open())
-//		return;
-//	out.write(playerName, 30);
-//	out.write((char*)&playerScore, sizeof(int));
-//
-//}
-//bool Player::load(std::ifstream& in)
-//{
-//	if (!in.is_open())return false;
-//
-//	//Load name
-//	in.read(playerName, 30);
-//
-//	if (in.rdstate()) return false;
-//	//Load Score
-//	in.read((char*)&playerScore, sizeof(int));
-//
-//	if (in.rdstate()) return false;
-//
-//
-//	return true;
-//}
+void Player::editPlayerName(char* name)
+{
+	name = Name;
+}

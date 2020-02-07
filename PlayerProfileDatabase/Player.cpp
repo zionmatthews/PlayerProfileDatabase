@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "Player.h"
 #include <iostream>
+#include <fstream>
+#include <string>
 
 //default constructer
 Player::Player()

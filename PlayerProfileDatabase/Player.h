@@ -24,4 +24,8 @@ public:
 	char _Name[30];
 	//Score
 	int _Score;
+
+	//To save and load
+	void save(std::ofstream& out);
+	bool load(std::ifstream& in);
 };
